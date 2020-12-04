@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   LineChart,
   Line,
+  ReferenceLine,
   CartesianGrid,
   XAxis,
   YAxis,
@@ -11,6 +12,7 @@ import {
 
 const MyLineChart = ({data}) => {
   const [parsedData, setParsedData] = useState(null)
+  const [avgLineVal, setAvgLineVal] = useState(0)
   console.log('LineChart data', data);
   useEffect(() => {
     if (data) {
@@ -20,7 +22,12 @@ const MyLineChart = ({data}) => {
           hours: item.values[0] ? Number(item.values[0].split('s')[0]) / 3600 : 0,
         }));
       console.log('*J* parsedDataTemp', parsedDataTemp)
-      setParsedData(parsedDataTemp)
+      const avgTempArr = parsedDataTemp.map(item => item.hours);
+      let total = 0;
+      avgTempArr.forEach(item => total += item);
+      const avg = total / avgTempArr.length;
+      setParsedData(parsedDataTemp);
+      setAvgLineVal(avg);
     }
   }, [data])
   return (
@@ -33,6 +40,7 @@ const MyLineChart = ({data}) => {
           <YAxis />
           <Tooltip />
           <Legend />
+          <ReferenceLine y={avgLineVal} label="Avg" stroke="red" />
           <Line type="monotone" dataKey="hours" stroke="#8884d8" />
         </LineChart> :
         <div>loading...</div>
