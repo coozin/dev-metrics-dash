@@ -49,7 +49,6 @@ const MyLineChart = ({data}) => {
         </LineChart> :
         <div>loading...</div>
       }
-      
     </>
   );
 }
