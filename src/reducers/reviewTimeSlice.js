@@ -1,8 +1,9 @@
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import coreRequest from '../utils/coreRequest';
 
 const initialState = {
-  data: null,
+  lineData: null,
+  barData: null,
   error: null,
   startDate: "2020-06-01",
   endDate: "2020-09-01",
@@ -10,11 +11,15 @@ const initialState = {
 
 export default function reviewTimeReducer(state = initialState, action) {
   switch (action.type) {
-    case 'fetchDefaultDataSuccess': {
-      state.data = action.payload;
+    case 'fetchDataSuccess-pr-review-time': {
+      state.lineData = action.payload;
       break;
     }
-    case 'fetchDefaultDataFail': {
+    case 'fetchDataSuccess-pr-opened': {
+      state.barData = action.payload;
+      break;
+    }
+    case 'fetchDataFail': {
       state.err = action.payload;
       break;
     }
@@ -43,8 +48,7 @@ export const setEndDate = (newDate) => dispatch => {
 
 export const fetchDataAsync = (metrics, startDate, endDate) => async dispatch => {
   axios({
-    method: "POST",
-    url: 'https://api.athenian.co/v1/metrics/prs',
+    ...coreRequest,
     data: JSON.stringify({
       "for":[
         {"repositories":["github.com/athenianco/athenian-api",
@@ -60,17 +64,17 @@ export const fetchDataAsync = (metrics, startDate, endDate) => async dispatch =>
       "account":1,
       "timezone":60
     }),
-    mode: "cors",
-    credentials: "omit"
+    
   })
     .then((response) => 
-      dispatch({ type: 'fetchDefaultDataSuccess', payload: response.data })
+      dispatch({ type: `fetchDataSuccess-${metrics[0]}`, payload: response.data })
     )
     .catch((err) =>
-      dispatch({ type: 'fetchDefaultDataFail', payload: err })
+      dispatch({ type: 'fetchDataFail', payload: err })
     )
 }
 
-export const selectData = state => state.data;
+export const selectLineData = state => state.lineData;
+export const selectBarData = state => state.barData;
 export const selectStartDate = state => state.startDate;
 export const selectEndDate = state => state.endDate;

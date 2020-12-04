@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Tab, Tabs } from '@material-ui/core';
 import ReviewTime from './ReviewTime';
+import PRsOpened from './PRsOpened';
 
 const TabContent = () => {
   const [value, setValue] = useState(0);
@@ -19,6 +20,9 @@ const TabContent = () => {
       </Tabs>
       {value === 0 &&
         <ReviewTime />
+      }
+      {value === 1 &&
+        <PRsOpened />
       }
     </div>
   );

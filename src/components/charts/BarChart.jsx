@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import {
-  LineChart,
-  Line,
+  BarChart,
   CartesianGrid,
   XAxis,
   YAxis,
   Tooltip,
   Legend,
+  Bar,
 } from 'recharts';
 
-const MyLineChart = ({data}) => {
+const MyBarChart = ({ data }) => {
   const [parsedData, setParsedData] = useState(null)
   console.log('LineChart data', data);
   useEffect(() => {
     if (data) {
-      const parsedDataTemp = data.calculated[0].values.map(
-        item => ({
+      const parsedDataTemp = data.calculated[0].values.map(item => ({
           date: item.date,
-          hours: item.values[0] ? Number(item.values[0].split('s')[0]) / 3600 : 0,
+          number: item.values[0] ? item.values[0] : 0,
         }));
       console.log('*J* parsedDataTemp', parsedDataTemp)
       setParsedData(parsedDataTemp)
@@ -26,22 +25,27 @@ const MyLineChart = ({data}) => {
   return (
     <>
       {data ?
-        <LineChart width={730} height={250} data={parsedData}
-          margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
+        <BarChart
+          width={500}
+          height={300}
+          data={parsedData}
+          margin={{
+            top: 5, right: 5, left: 5, bottom: 5,
+          }}
+        >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" />
           <YAxis />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="hours" stroke="#8884d8" />
-        </LineChart> :
+          <Bar dataKey="number" fill="#8884d8" />
+        </BarChart> :
         <div>loading...</div>
       }
-      
     </>
   );
 }
 
-export default MyLineChart;
+export default MyBarChart;
 
         

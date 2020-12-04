@@ -1,24 +1,24 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import LineChart from './charts/LineChart';
+import BarChart from './charts/BarChart';
 import {
   fetchDataAsync,
-  selectLineData,
+  selectBarData,
   selectStartDate,
   selectEndDate,
 } from '../reducers/reviewTimeSlice';
 
-const ReviewTime = () => {
-  const data = useSelector(selectLineData);
+const PRsOpened = () => {
+  const data = useSelector(selectBarData);
   const startDate = useSelector(selectStartDate);
   const endDate = useSelector(selectEndDate);
 
   const dispatch = useDispatch();
 
-  console.log('pr-review-time data', data);
+  console.log('pr-opened data', data);
   
   useEffect(() => {
-    const metrics = ["pr-review-time"];
+    const metrics = ["pr-opened"];
 
     dispatch(fetchDataAsync(metrics, startDate, endDate));
   }, [dispatch, startDate, endDate]);
@@ -26,12 +26,12 @@ const ReviewTime = () => {
   return (
     <>
       <div className="review-time">
-        <LineChart data={data}/>
+        <BarChart data={data}/>
       </div>      
     </>
   );
 }
 
-export default ReviewTime;
+export default PRsOpened;
 
         
