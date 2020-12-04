@@ -20,7 +20,7 @@ const PRsOpened = () => {
   useEffect(() => {
     const metrics = ["pr-opened"];
 
-    dispatch(fetchDataAsync(metrics, startDate, endDate));
+    dispatch(fetchDataAsync(metrics, startDate, endDate, true));
   }, [dispatch, startDate, endDate]);
 
   return (

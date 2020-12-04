@@ -1,5 +1,10 @@
 import axios from 'axios';
-import coreRequest from '../utils/coreRequest';
+import utilities from '../utils/coreRequest';
+const {
+  coreRequest,
+  allRepoGroups,
+  justRepos
+} = utilities;
 
 const initialState = {
   lineData: null,
@@ -46,15 +51,22 @@ export const setEndDate = (newDate) => dispatch => {
   dispatch({ type: 'setEndDate', payload: newDate.format("yyyy-MM-DD") })
 }
 
-export const fetchDataAsync = (metrics, startDate, endDate) => async dispatch => {
+/* 
+  "github.com/athenianco/athenian-webapp",
+  "github.com/athenianco/athenian-api",
+  "github.com/athenianco/environments",
+  "github.com/athenianco/helm-repo",
+  "github.com/athenianco/infrastructure",
+  "github.com/athenianco/metadata",
+  "github.com/athenianco/precomputer",
+*/
+
+export const fetchDataAsync = (metrics, startDate, endDate, hasRepoGroups = false) => async dispatch => {
   axios({
     ...coreRequest,
     data: JSON.stringify({
-      "for":[
-        {"repositories":["github.com/athenianco/athenian-api",
-                         "github.com/athenianco/athenian-webapp",
-                         "github.com/athenianco/infrastructure",
-                         "github.com/athenianco/metadata"]}
+      "for": [
+        hasRepoGroups ? allRepoGroups : justRepos
       ],
       "metrics":[...metrics],
       "date_from": startDate,

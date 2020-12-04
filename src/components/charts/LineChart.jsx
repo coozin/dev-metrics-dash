@@ -33,8 +33,12 @@ const MyLineChart = ({data}) => {
   return (
     <>
       {data ?
-        <LineChart width={730} height={250} data={parsedData}
-          margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
+        <LineChart
+          width={730}
+          height={300}
+          data={parsedData}
+          margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
+        >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" />
           <YAxis />

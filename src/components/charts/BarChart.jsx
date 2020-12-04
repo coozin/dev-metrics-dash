@@ -11,13 +11,21 @@ import {
 
 const MyBarChart = ({ data }) => {
   const [parsedData, setParsedData] = useState(null)
-  console.log('LineChart data', data);
+  console.log('BarChart data', data);
   useEffect(() => {
     if (data) {
-      const parsedDataTemp = data.calculated[0].values.map(item => ({
-          date: item.date,
-          number: item.values[0] ? item.values[0] : 0,
-        }));
+      const parsedDataTemp = data.calculated.map(item => {
+        let total = 0;
+        const tempArrNumberOfPRs = item.values.map(
+          item => item.values[0] ? item.values[0] : 0
+        );
+        tempArrNumberOfPRs.forEach(item => total += item);
+        return {
+          repo: item.for.repositories[0].split('/')[2],
+          number: total,
+        }
+      })
+      
       console.log('*J* parsedDataTemp', parsedDataTemp)
       setParsedData(parsedDataTemp)
     }
@@ -26,7 +34,7 @@ const MyBarChart = ({ data }) => {
     <>
       {data ?
         <BarChart
-          width={500}
+          width={730}
           height={300}
           data={parsedData}
           margin={{
@@ -34,7 +42,7 @@ const MyBarChart = ({ data }) => {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" />
+          <XAxis dataKey="repo" />
           <YAxis />
           <Tooltip />
           <Legend />
