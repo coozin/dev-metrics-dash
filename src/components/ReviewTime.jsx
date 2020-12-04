@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
+import LineChart from './charts/LineChart';
 import { selectData } from '../reducers/reviewTimeSlice';
 import {
   fetchDataAsync
@@ -13,7 +14,8 @@ const ReviewTime = () => {
   return (
     <>
       <div className="review-time">
-        <Button onClick={() => dispatch(fetchDataAsync())}>get data</Button>
+        <Button onClick={() => dispatch(fetchDataAsync(["pr-review-time"]))}>get data</Button>
+        <LineChart data={data}/>
       </div>      
     </>
   );

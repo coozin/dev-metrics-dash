@@ -1,26 +1,27 @@
-import getDefault from '../apis/index';
 import axios from 'axios';
 
 const initialState = {
   data: null,
+  error: null,
 }
 
 export default function reviewTimeReducer(state = initialState, action) {
   switch (action.type) {
-    // omit other reducer cases
-    case 'fetchDefaultData': {
-      // Replace the existing state entirely by returning the new value
-      console.log("*J* action.payload", action.payload)
+    case 'fetchDefaultDataSuccess': {
       state.data = action.payload
+      break;
+    }
+    case 'fetchDefaultDataFail': {
+      state.err = action.payload
       break;
     }
     default:
       return state
   }
 }
+// metrics = ["pr-review-time"]
 
-export const fetchDataAsync = () => async dispatch => {
-  
+export const fetchDataAsync = (metrics) => async dispatch => {
   axios({
     method: "POST",
     url: 'https://api.athenian.co/v1/metrics/prs',
@@ -31,7 +32,7 @@ export const fetchDataAsync = () => async dispatch => {
                          "github.com/athenianco/infrastructure",
                          "github.com/athenianco/metadata"]}
       ],
-      "metrics":["pr-review-time","pr-opened"],
+      "metrics":[...metrics],
       "date_from":"2020-06-01",
       "date_to":"2020-09-01",
       "granularities":["day"],
@@ -41,9 +42,13 @@ export const fetchDataAsync = () => async dispatch => {
     }),
     mode: "cors",
     credentials: "omit"
-  }).then((response) => 
-    dispatch({ type: 'fetchDefaultData', payload: response.data })
-  )
+  })
+    .then((response) => 
+      dispatch({ type: 'fetchDefaultDataSuccess', payload: response.data })
+    )
+    .catch((err) =>
+      dispatch({ type: 'fetchDefaultDataFail', payload: err })
+    )
 }
 
 export const selectData = state => state.data;
