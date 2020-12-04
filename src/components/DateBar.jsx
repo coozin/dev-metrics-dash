@@ -1,9 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { DatePicker } from "@material-ui/pickers";
+import {
+  selectStartDate,
+  selectEndDate,
+  setStartDate,
+  setEndDate
+} from '../reducers/reviewTimeSlice';
 
 const DateBar = () => {
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const startDate = useSelector(selectStartDate);
+  const endDate = useSelector(selectEndDate);
+
+  const dispatch = useDispatch();
 
   return (
     <div className="date-container">
@@ -12,20 +21,20 @@ const DateBar = () => {
         inputVariant="outlined"
         label="Start Date"
         value={startDate}
-        onChange={setStartDate}
+        onChange={newVal => dispatch(setStartDate(newVal))}
         animateYearScrolling
         disableFuture
-        format="DD/MM/yyyy"
+        format="yyyy-MM-DD"
       />
       <DatePicker
         variant="inline"
         inputVariant="outlined"
         label="End Date"
         value={endDate}
-        onChange={setEndDate}
+        onChange={newVal => dispatch(setEndDate(newVal))}
         animateYearScrolling
         disableFuture
-        format="DD/MM/yyyy"
+        format="yyyy-MM-DD"
       />
     </div>
   );
