@@ -7,6 +7,7 @@ import {
   selectStartDate,
   selectEndDate,
 } from '../reducers/reviewTimeSlice';
+import AverageKPI from './kpis/AverageKPI';
 
 const ReviewTime = () => {
   const data = useSelector(selectLineData);
@@ -27,6 +28,7 @@ const ReviewTime = () => {
     <>
       <div className="review-time">
         <LineChart data={data}/>
+        <AverageKPI data={data}/>
       </div>      
     </>
   );
