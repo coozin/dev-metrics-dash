@@ -46,7 +46,7 @@ const MyBarChart = ({ data }) => {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="PRs" fill="#8884d8" />
+            <Bar dataKey="PRs" fill="#3f51b5" />
           </BarChart>
         </ResponsiveContainer> :
         <div>loading...</div>

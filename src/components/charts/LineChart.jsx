@@ -47,7 +47,7 @@ const MyLineChart = ({data}) => {
             />
             <Legend />
             <ReferenceLine y={avgLineVal} label="Avg" stroke="red" />
-            <Line type="monotone" dataKey="hours" stroke="#8884d8" />
+            <Line type="monotone" dataKey="hours" stroke="#3f51b5" />
           </LineChart>
         </ResponsiveContainer> :
         <div>loading...</div>
