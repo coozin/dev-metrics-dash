@@ -27,10 +27,13 @@ const AvgPRsPerRepo = ({ data }) => {
 
   return (
     <div className="avg-kpi-container">
-      <KPICard
-        title="Average"
-        value={`${average} PRs/repo`}
-      />
+      {average ?
+        <KPICard
+          title="Average"
+          value={`${average} PRs/repo`}
+        /> :
+        <div>loading kpi...</div>
+      }
     </div>
   );
 }

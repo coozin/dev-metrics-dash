@@ -50,7 +50,7 @@ const MyLineChart = ({data}) => {
             <Line type="monotone" dataKey="hours" stroke="#3f51b5" />
           </LineChart>
         </ResponsiveContainer> :
-        <div>loading...</div>
+        <div>loading chart...</div>
       }
     </>
   );

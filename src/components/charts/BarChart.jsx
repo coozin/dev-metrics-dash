@@ -49,7 +49,7 @@ const MyBarChart = ({ data }) => {
             <Bar dataKey="PRs" fill="#3f51b5" />
           </BarChart>
         </ResponsiveContainer> :
-        <div>loading...</div>
+        <div>loading chart...</div>
       }
     </>
   );

@@ -19,10 +19,13 @@ const AverageKPIs = ({ data }) => {
 
   return (
     <div className="avg-kpi-container">
-      <KPICard
-        title="Average"
-        value={`${average} hours`}
-      />
+      {average ?
+        <KPICard
+          title="Average"
+          value={`${average} hours`}
+        /> :
+        <div>loading kpi...</div>
+      }
     </div>
   );
 }
