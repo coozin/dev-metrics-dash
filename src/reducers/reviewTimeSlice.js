@@ -15,6 +15,7 @@ export const reviewTimeReducer = createSlice({
     error: null,
     startDate: "2020-06-01",
     endDate: "2020-09-01",
+    areKPIsVisible: true,
   },
   reducers: {
     fetchLineDataSuccess: (state, action) => {
@@ -31,6 +32,9 @@ export const reviewTimeReducer = createSlice({
     },
     setEndDate: (state, action) => {
       state.endDate = action.payload;
+    },
+    setShowKPIs: (state, action) => {
+      state.areKPIsVisible = action.payload;
     },
   },
 });
@@ -49,6 +53,7 @@ export const {
   fetchDataFail,
   setStartDate,
   setEndDate,
+  setShowKPIs,
  } = reviewTimeReducer.actions;
 
 export const fetchDataAsync = (metrics, startDate, endDate, hasRepoGroups = false) => async dispatch => {
@@ -80,5 +85,6 @@ export const selectLineData = state => state.reviewTime.lineData;
 export const selectBarData = state => state.reviewTime.barData;
 export const selectStartDate = state => state.reviewTime.startDate;
 export const selectEndDate = state => state.reviewTime.endDate;
+export const selectShowKPIs = state => state.reviewTime.areKPIsVisible;
 
 export default reviewTimeReducer.reducer;

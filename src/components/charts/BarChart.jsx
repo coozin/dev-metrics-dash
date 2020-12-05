@@ -19,7 +19,6 @@ const MyBarChart = ({ data }) => {
   const [parsedData, setParsedData] = useState(null);
   const { enqueueSnackbar } = useSnackbar();
 
-  console.log('BarChart data', data);
   useEffect(() => {
     if (data) {
       enqueueSnackbar(SUCCESS_MESSAGE, { variant: "success" })
@@ -34,8 +33,6 @@ const MyBarChart = ({ data }) => {
           PRs: total,
         }
       })
-      
-      console.log('*J* parsedDataTemp', parsedDataTemp)
       setParsedData(parsedDataTemp)
     }
   }, [enqueueSnackbar, data])

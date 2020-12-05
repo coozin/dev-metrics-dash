@@ -20,7 +20,7 @@ const MyLineChart = ({ data }) => {
   const [parsedData, setParsedData] = useState(null);
   const [avgLineVal, setAvgLineVal] = useState(0);
   const { enqueueSnackbar } = useSnackbar();
-  console.log('LineChart data', data);
+
   useEffect(() => {
     if (data) {
       enqueueSnackbar(SUCCESS_MESSAGE, { variant: "success" })
@@ -29,7 +29,6 @@ const MyLineChart = ({ data }) => {
           date: item.date,
           hours: item.values[0] ? Number(item.values[0].split('s')[0]) / 3600 : 0,
         }));
-      console.log('*J* parsedDataTemp', parsedDataTemp)
       const avgTempArr = parsedDataTemp.map(item => item.hours);
       let total = 0;
       avgTempArr.forEach(item => total += item);

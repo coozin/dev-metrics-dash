@@ -6,17 +6,17 @@ import {
   selectBarData,
   selectStartDate,
   selectEndDate,
+  selectShowKPIs,
 } from '../reducers/reviewTimeSlice';
 import AvgPRsPerRepo from './kpis/AvgPRsPerRepo';
 
 const PRsOpened = () => {
+  const showKPIs = useSelector(selectShowKPIs);
   const data = useSelector(selectBarData);
   const startDate = useSelector(selectStartDate);
   const endDate = useSelector(selectEndDate);
 
   const dispatch = useDispatch();
-
-  console.log('pr-opened data', data);
   
   useEffect(() => {
     const metrics = ["pr-opened"];
@@ -29,9 +29,11 @@ const PRsOpened = () => {
         <div className="prs-opened-chart prs-opened-item">
           <BarChart data={data}/>
         </div>
-        <div className="prs-opened-kpi prs-opened-item">
-          <AvgPRsPerRepo data={data}/>
-        </div>
+        {showKPIs &&
+          <div className="prs-opened-kpi prs-opened-item">
+            <AvgPRsPerRepo data={data}/>
+          </div>
+        }
       </div>  
     </>
   );

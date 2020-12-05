@@ -6,17 +6,17 @@ import {
   selectLineData,
   selectStartDate,
   selectEndDate,
+  selectShowKPIs,
 } from '../reducers/reviewTimeSlice';
 import AverageKPI from './kpis/AverageKPI';
 
 const ReviewTime = () => {
+  const showKPIs = useSelector(selectShowKPIs);
   const data = useSelector(selectLineData);
   const startDate = useSelector(selectStartDate);
   const endDate = useSelector(selectEndDate);
 
   const dispatch = useDispatch();
-
-  console.log('pr-review-time data', data);
   
   useEffect(() => {
     const metrics = ["pr-review-time"];
@@ -30,9 +30,11 @@ const ReviewTime = () => {
         <div className="review-time-chart review-time-item">
           <LineChart data={data}/>
         </div>
-        <div className="review-time-kpi review-time-item">
-          <AverageKPI data={data}/>
-        </div>
+        {showKPIs &&
+          <div className="review-time-kpi review-time-item">
+            <AverageKPI data={data}/>
+          </div>
+        }
       </div>      
     </>
   );

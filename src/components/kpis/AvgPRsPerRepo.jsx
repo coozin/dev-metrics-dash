@@ -6,9 +6,7 @@ const AvgPRsPerRepo = ({ data }) => {
   const [average, setAverage] = useState(null);
 
   useEffect(() => {
-    if (data) {
-      console.log('avg prs per repo data')
-      
+    if (data) {      
       const parsedData = data.calculated.map(item => {
         let total = 0;
         const tempArrNumberOfPRs = item.values.map(

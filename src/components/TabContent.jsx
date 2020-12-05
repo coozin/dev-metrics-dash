@@ -15,6 +15,7 @@ const TabContent = () => {
         textColor="primary"
         onChange={handleChange}
         className="tab-header"
+        centered
       >
         <Tab label="Review time" />
         <Tab label="PRs created" />

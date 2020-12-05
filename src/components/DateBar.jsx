@@ -2,12 +2,19 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
 
-import { AppBar, Toolbar } from "@material-ui/core"
+import {
+  AppBar,
+  Toolbar,
+  FormControlLabel,
+  Switch,
+} from "@material-ui/core"
 import {
   selectStartDate,
   selectEndDate,
+  selectShowKPIs,
   setStartDate,
-  setEndDate
+  setEndDate,
+  setShowKPIs
 } from '../reducers/reviewTimeSlice';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import moment from 'moment';
@@ -18,6 +25,7 @@ const DateBar = () => {
   const { enqueueSnackbar } = useSnackbar();
   const startDate = useSelector(selectStartDate);
   const endDate = useSelector(selectEndDate);
+  const showKPIs = useSelector(selectShowKPIs);
 
   const dispatch = useDispatch();
 
@@ -30,8 +38,6 @@ const DateBar = () => {
     const momentEnd = moment(dateArr[1])
     const diff = momentEnd.diff(momentStart, 'days')
 
-    console.log("diff", diff)
-
     if (diff > 93) {
       return false;
     }
@@ -40,7 +46,6 @@ const DateBar = () => {
   }
 
   const onChange = (newDateArr) => {
-    console.log('newDateArr', newDateArr)
     if (!isDateRangeValid(newDateArr)) {
       enqueueSnackbar(ERROR_MESSAGE, { variant: "error" })
       return;
@@ -58,7 +63,11 @@ const DateBar = () => {
       dispatch(setStartDate(newStartDate))
       dispatch(setEndDate(newEndDate))
     }
-  } 
+  }
+
+  const handleChangeKPI = (event) => {
+    dispatch(setShowKPIs(event.target.checked))
+  }
 
   return (
     <AppBar position="static">
@@ -70,9 +79,17 @@ const DateBar = () => {
             onChange={onChange}
             value={[startDate, endDate]}
           />
-          {/* {errorMessage && 
-            <div className="error-message">{errorMessage}</div>
-          } */}
+          <FormControlLabel
+            control={
+              <Switch
+                checked={showKPIs}
+                onChange={e => handleChangeKPI(e)}
+                name="KPIsChecked"
+                color="secondary"
+              />
+            }
+            label="Show KPIs"
+          />
         </div>
       </Toolbar>
     </AppBar>
