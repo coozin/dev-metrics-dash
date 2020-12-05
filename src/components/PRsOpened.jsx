@@ -26,10 +26,14 @@ const PRsOpened = () => {
 
   return (
     <>
-      <div className="review-time">
-        <BarChart data={data}/>
-        <AvgPRsPerRepo data={data}/>
-      </div>      
+      <div className="prs-opened-container">
+        <div className="prs-opened-chart prs-opened-item">
+          <BarChart data={data}/>
+        </div>
+        <div className="prs-opened-kpi prs-opened-item">
+          <AvgPRsPerRepo data={data}/>
+        </div>
+      </div>  
     </>
   );
 }

@@ -34,10 +34,8 @@ const MyLineChart = ({data}) => {
   return (
     <>
       {data ?
-        <ResponsiveContainer height={300} width="100%">
+        <ResponsiveContainer height={300} width="99%">
           <LineChart
-            width={730}
-            height={300}
             data={parsedData}
             margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
           >

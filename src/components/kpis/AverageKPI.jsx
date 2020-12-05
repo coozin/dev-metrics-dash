@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import KPICard from './KPICard';
 
 const AverageKPIs = ({ data }) => {
   const [average, setAverage] = useState(null);
@@ -18,7 +19,10 @@ const AverageKPIs = ({ data }) => {
 
   return (
     <div className="avg-kpi-container">
-      Average hours: { average }
+      <KPICard
+        title="Average"
+        value={`${average} hours`}
+      />
     </div>
   );
 }

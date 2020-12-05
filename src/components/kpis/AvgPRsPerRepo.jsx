@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import KPICard from './KPICard';
 
 const AvgPRsPerRepo = ({ data }) => {
   const [average, setAverage] = useState(null);
@@ -26,7 +27,10 @@ const AvgPRsPerRepo = ({ data }) => {
 
   return (
     <div className="avg-kpi-container">
-      Average PRs Per Repo: { average }
+      <KPICard
+        title="Average"
+        value={`${average} PRs/repo`}
+      />
     </div>
   );
 }

@@ -25,3 +25,35 @@
 .tab-header {
   padding: 20px 0;
 }
+
+.review-time-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.review-time-item {
+  margin: 0 20px 20px 20px;
+}
+.review-time-chart {
+  flex: 3;
+}
+.review-time-kpi {
+  flex: 1;
+}
+
+.prs-opened-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.prs-opened-item {
+  margin: 0 20px 20px 20px;
+}
+.prs-opened-chart {
+  flex: 3;
+}
+.prs-opened-kpi {
+  flex: 1;
+}

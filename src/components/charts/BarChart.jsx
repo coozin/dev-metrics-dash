@@ -34,7 +34,7 @@ const MyBarChart = ({ data }) => {
   return (
     <>
       {data ?
-        <ResponsiveContainer height={300} width="100%">
+        <ResponsiveContainer height={300} width="99%">
           <BarChart
             data={parsedData}
             margin={{

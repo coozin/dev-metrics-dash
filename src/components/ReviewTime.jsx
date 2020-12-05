@@ -26,9 +26,13 @@ const ReviewTime = () => {
 
   return (
     <>
-      <div className="review-time">
-        <LineChart data={data}/>
-        <AverageKPI data={data}/>
+      <div className="review-time-container">
+        <div className="review-time-chart review-time-item">
+          <LineChart data={data}/>
+        </div>
+        <div className="review-time-kpi review-time-item">
+          <AverageKPI data={data}/>
+        </div>
       </div>      
     </>
   );
