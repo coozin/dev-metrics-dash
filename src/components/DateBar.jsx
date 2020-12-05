@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useSnackbar } from 'notistack';
+
 import { AppBar, Toolbar } from "@material-ui/core"
 import {
   selectStartDate,
@@ -10,9 +12,10 @@ import {
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import moment from 'moment';
 
+const ERROR_MESSAGE = 'Range selected is too large, 3 month max (93 days)';
 
 const DateBar = () => {
-  const [errorMessage, setErrorMessage] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
   const startDate = useSelector(selectStartDate);
   const endDate = useSelector(selectEndDate);
 
@@ -39,10 +42,8 @@ const DateBar = () => {
   const onChange = (newDateArr) => {
     console.log('newDateArr', newDateArr)
     if (!isDateRangeValid(newDateArr)) {
-      setErrorMessage('Range selected is too large, 3 month max (93 days)');
+      enqueueSnackbar(ERROR_MESSAGE, { variant: "error" })
       return;
-    } else {
-      setErrorMessage(false);
     }
     if (newDateArr && newDateArr.length) {
       const newStartDate = moment(newDateArr[0]).format("yyyy-MM-DD")
@@ -69,9 +70,9 @@ const DateBar = () => {
             onChange={onChange}
             value={[startDate, endDate]}
           />
-          {errorMessage && 
+          {/* {errorMessage && 
             <div className="error-message">{errorMessage}</div>
-          }
+          } */}
         </div>
       </Toolbar>
     </AppBar>

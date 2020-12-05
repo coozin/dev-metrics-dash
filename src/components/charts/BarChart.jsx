@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSnackbar } from 'notistack';
 import {
   ResponsiveContainer,
   BarChart,
@@ -12,11 +13,16 @@ import {
 import { Skeleton } from '@material-ui/lab';
 import { Card } from '@material-ui/core';
 
+const SUCCESS_MESSAGE = 'Data fetch successful';
+
 const MyBarChart = ({ data }) => {
-  const [parsedData, setParsedData] = useState(null)
+  const [parsedData, setParsedData] = useState(null);
+  const { enqueueSnackbar } = useSnackbar();
+
   console.log('BarChart data', data);
   useEffect(() => {
     if (data) {
+      enqueueSnackbar(SUCCESS_MESSAGE, { variant: "success" })
       const parsedDataTemp = data.calculated.map(item => {
         let total = 0;
         const tempArrNumberOfPRs = item.values.map(
@@ -32,7 +38,7 @@ const MyBarChart = ({ data }) => {
       console.log('*J* parsedDataTemp', parsedDataTemp)
       setParsedData(parsedDataTemp)
     }
-  }, [data])
+  }, [enqueueSnackbar, data])
   return (
     <>
       {data ?

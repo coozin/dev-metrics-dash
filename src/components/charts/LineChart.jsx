@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSnackbar } from 'notistack';
 import {
   ResponsiveContainer,
   LineChart,
@@ -13,12 +14,16 @@ import {
 import { Skeleton } from '@material-ui/lab';
 import { Card } from '@material-ui/core';
 
-const MyLineChart = ({data}) => {
-  const [parsedData, setParsedData] = useState(null)
-  const [avgLineVal, setAvgLineVal] = useState(0)
+const SUCCESS_MESSAGE = 'Data fetch successful';
+
+const MyLineChart = ({ data }) => {
+  const [parsedData, setParsedData] = useState(null);
+  const [avgLineVal, setAvgLineVal] = useState(0);
+  const { enqueueSnackbar } = useSnackbar();
   console.log('LineChart data', data);
   useEffect(() => {
     if (data) {
+      enqueueSnackbar(SUCCESS_MESSAGE, { variant: "success" })
       const parsedDataTemp = data.calculated[0].values.map(
         item => ({
           date: item.date,
@@ -32,7 +37,7 @@ const MyLineChart = ({data}) => {
       setParsedData(parsedDataTemp);
       setAvgLineVal(avg);
     }
-  }, [data])
+  }, [enqueueSnackbar, data])
   return (
     <>
       {data ?

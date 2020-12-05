@@ -1,5 +1,4 @@
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import MomentUtils from '@date-io/moment';
+import { SnackbarProvider } from 'notistack';
 
 import DateBar from './components/DateBar';
 import TabContent from './components/TabContent';
@@ -8,12 +7,12 @@ import './App.css';
 
 function App() {
   return (
-    <MuiPickersUtilsProvider utils={MomentUtils}>
+    <SnackbarProvider maxSnack={3}>
       <div className="app">
         <DateBar />
         <TabContent />
       </div>
-    </MuiPickersUtilsProvider>
+    </SnackbarProvider>
   );
 }
 
