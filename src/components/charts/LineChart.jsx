@@ -11,6 +11,7 @@ import {
   Legend,
 } from 'recharts';
 import { Skeleton } from '@material-ui/lab';
+import { Card } from '@material-ui/core';
 
 const MyLineChart = ({data}) => {
   const [parsedData, setParsedData] = useState(null)
@@ -35,22 +36,24 @@ const MyLineChart = ({data}) => {
   return (
     <>
       {data ?
-        <ResponsiveContainer height={300} width="99%">
-          <LineChart
-            data={parsedData}
-            margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" />
-            <YAxis />
-            <Tooltip
-              formatter={(value) => value.toFixed(2)}
-            />
-            <Legend />
-            <ReferenceLine y={avgLineVal} label="Avg" stroke="red" />
-            <Line type="monotone" dataKey="hours" stroke="#3f51b5" />
-          </LineChart>
-        </ResponsiveContainer> :
+        <Card>
+          <ResponsiveContainer height={300} width="99%">
+            <LineChart
+              data={parsedData}
+              margin={{ top: 25, right: 25, bottom: 10 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="date" />
+              <YAxis />
+              <Tooltip
+                formatter={(value) => value.toFixed(2)}
+              />
+              <Legend />
+              <ReferenceLine y={avgLineVal} label="Avg" stroke="red" />
+              <Line type="monotone" dataKey="hours" stroke="#3f51b5" />
+            </LineChart>
+          </ResponsiveContainer> 
+        </Card> :
         <Skeleton
           variant="rect"
           animation="wave"

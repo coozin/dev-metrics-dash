@@ -10,6 +10,7 @@ import {
   Bar,
 } from 'recharts';
 import { Skeleton } from '@material-ui/lab';
+import { Card } from '@material-ui/core';
 
 const MyBarChart = ({ data }) => {
   const [parsedData, setParsedData] = useState(null)
@@ -35,21 +36,21 @@ const MyBarChart = ({ data }) => {
   return (
     <>
       {data ?
-        <ResponsiveContainer height={300} width="99%">
-          <BarChart
-            data={parsedData}
-            margin={{
-              top: 5, right: 5, left: 5, bottom: 5,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="repo" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="PRs" fill="#3f51b5" />
-          </BarChart>
-        </ResponsiveContainer> :
+        <Card>
+          <ResponsiveContainer height={300} width="99%">
+            <BarChart
+              data={parsedData}
+              margin={{ top: 25, right: 25, bottom: 10 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="repo" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="PRs" fill="#3f51b5" />
+            </BarChart>
+          </ResponsiveContainer>
+        </Card> :
         <Skeleton
           variant="rect"
           animation="wave"
