@@ -39,19 +39,23 @@ const DateBar = () => {
   const onChange = (newDateArr) => {
     console.log('newDateArr', newDateArr)
     if (!isDateRangeValid(newDateArr)) {
-      setErrorMessage('range selected is too large, 3 month max (93 days)');
+      setErrorMessage('Range selected is too large, 3 month max (93 days)');
       return;
     } else {
       setErrorMessage(false);
     }
     if (newDateArr && newDateArr.length) {
-      dispatch(setStartDate(newDateArr[0]))
-      dispatch(setEndDate(newDateArr[1]))
+      const newStartDate = moment(newDateArr[0]).format("yyyy-MM-DD")
+      const newEndDate = moment(newDateArr[1]).format("yyyy-MM-DD")
+      dispatch(setStartDate(newStartDate))
+      dispatch(setEndDate(newEndDate))
     } else {
       let thirtyDaysAgo = new Date();
       thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-      dispatch(setStartDate(thirtyDaysAgo))
-      dispatch(setEndDate(new Date()))
+      const newStartDate = moment(thirtyDaysAgo).format("yyyy-MM-DD")
+      const newEndDate = moment(new Date()).format("yyyy-MM-DD")
+      dispatch(setStartDate(newStartDate))
+      dispatch(setEndDate(newEndDate))
     }
   } 
 

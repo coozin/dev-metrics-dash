@@ -1,5 +1,5 @@
 import axios from 'axios';
-import moment from 'moment';
+import { createSlice } from '@reduxjs/toolkit';
 import utilities from '../utils/coreRequest';
 const {
   coreRequest,
@@ -7,50 +7,49 @@ const {
   justRepos
 } = utilities;
 
-const initialState = {
-  lineData: null,
-  barData: null,
-  error: null,
-  startDate: "2020-06-01",
-  endDate: "2020-09-01",
-}
-
-export default function reviewTimeReducer(state = initialState, action) {
-  switch (action.type) {
-    case 'fetchDataSuccess-pr-review-time': {
+export const reviewTimeReducer = createSlice({
+  name: 'reviewTime',
+  initialState: {
+    lineData: null,
+    barData: null,
+    error: null,
+    startDate: "2020-06-01",
+    endDate: "2020-09-01",
+  },
+  reducers: {
+    fetchLineDataSuccess: (state, action) => {
       state.lineData = action.payload;
-      break;
-    }
-    case 'fetchDataSuccess-pr-opened': {
+    },
+    fetchBarDataSuccess: (state, action) => {
       state.barData = action.payload;
-      break;
-    }
-    case 'fetchDataFail': {
+    },
+    fetchDataFail: (state, action) => {
       state.err = action.payload;
-      break;
-    }
-    case 'setStartDate': {
+    },
+    setStartDate: (state, action) => {
       state.startDate = action.payload;
-      break;
-    }
-    case 'setEndDate': {
+    },
+    setEndDate: (state, action) => {
       state.endDate = action.payload;
-      break;
-    }
-    default:
-      return state
+    },
+  },
+});
+
+const handleDispatchChartData = (dispatch, hasRepoGroups, res) => {
+  if (hasRepoGroups) {
+    dispatch(fetchBarDataSuccess(res))
+  } else {
+    dispatch(fetchLineDataSuccess(res))
   }
 }
 
-export const setStartDate = (newDate) => dispatch => {
-  console.log('setStartDate newDate', newDate)
-  dispatch({ type: 'setStartDate', payload: moment(newDate).format("yyyy-MM-DD") })
-}
-
-export const setEndDate = (newDate) => dispatch => {
-  console.log('setEndDate newDate', newDate)
-  dispatch({ type: 'setEndDate', payload: moment(newDate).format("yyyy-MM-DD") })
-}
+export const { 
+  fetchLineDataSuccess,
+  fetchBarDataSuccess,
+  fetchDataFail,
+  setStartDate,
+  setEndDate,
+ } = reviewTimeReducer.actions;
 
 export const fetchDataAsync = (metrics, startDate, endDate, hasRepoGroups = false) => async dispatch => {
   axios({
@@ -70,14 +69,16 @@ export const fetchDataAsync = (metrics, startDate, endDate, hasRepoGroups = fals
     
   })
     .then((response) => 
-      dispatch({ type: `fetchDataSuccess-${metrics[0]}`, payload: response.data })
+      handleDispatchChartData(dispatch, hasRepoGroups, response.data)
     )
     .catch((err) =>
-      dispatch({ type: 'fetchDataFail', payload: err })
+      dispatch(fetchDataFail(err))
     )
 }
 
-export const selectLineData = state => state.lineData;
-export const selectBarData = state => state.barData;
-export const selectStartDate = state => state.startDate;
-export const selectEndDate = state => state.endDate;
+export const selectLineData = state => state.reviewTime.lineData;
+export const selectBarData = state => state.reviewTime.barData;
+export const selectStartDate = state => state.reviewTime.startDate;
+export const selectEndDate = state => state.reviewTime.endDate;
+
+export default reviewTimeReducer.reducer;
