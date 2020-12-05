@@ -14,6 +14,7 @@ const TabContent = () => {
         indicatorColor="primary"
         textColor="primary"
         onChange={handleChange}
+        className="tab-header"
       >
         <Tab label="Review time" />
         <Tab label="PRs created" />

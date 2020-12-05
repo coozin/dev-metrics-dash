@@ -21,3 +21,7 @@
 .date-picker fieldset, fieldset:active {
   border-color: white;
 }
+
+.tab-header {
+  padding: 20px 0;
+}

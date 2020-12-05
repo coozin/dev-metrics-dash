@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
+  ResponsiveContainer,
   LineChart,
   Line,
   ReferenceLine,
@@ -33,20 +34,22 @@ const MyLineChart = ({data}) => {
   return (
     <>
       {data ?
-        <LineChart
-          width={730}
-          height={300}
-          data={parsedData}
-          margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <ReferenceLine y={avgLineVal} label="Avg" stroke="red" />
-          <Line type="monotone" dataKey="hours" stroke="#8884d8" />
-        </LineChart> :
+        <ResponsiveContainer height={300} width="100%">
+          <LineChart
+            width={730}
+            height={300}
+            data={parsedData}
+            margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="date" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <ReferenceLine y={avgLineVal} label="Avg" stroke="red" />
+            <Line type="monotone" dataKey="hours" stroke="#8884d8" />
+          </LineChart>
+        </ResponsiveContainer> :
         <div>loading...</div>
       }
     </>

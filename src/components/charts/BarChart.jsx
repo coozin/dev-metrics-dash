@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
+  ResponsiveContainer,
   BarChart,
   CartesianGrid,
   XAxis,
@@ -33,21 +34,21 @@ const MyBarChart = ({ data }) => {
   return (
     <>
       {data ?
-        <BarChart
-          width={730}
-          height={300}
-          data={parsedData}
-          margin={{
-            top: 5, right: 5, left: 5, bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="repo" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="number" fill="#8884d8" />
-        </BarChart> :
+        <ResponsiveContainer height={300} width="100%">
+          <BarChart
+            data={parsedData}
+            margin={{
+              top: 5, right: 5, left: 5, bottom: 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="repo" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="number" fill="#8884d8" />
+          </BarChart>
+        </ResponsiveContainer> :
         <div>loading...</div>
       }
     </>
