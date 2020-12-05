@@ -10,6 +10,7 @@ import {
   Tooltip,
   Legend,
 } from 'recharts';
+import { Skeleton } from '@material-ui/lab';
 
 const MyLineChart = ({data}) => {
   const [parsedData, setParsedData] = useState(null)
@@ -50,7 +51,11 @@ const MyLineChart = ({data}) => {
             <Line type="monotone" dataKey="hours" stroke="#3f51b5" />
           </LineChart>
         </ResponsiveContainer> :
-        <div>loading chart...</div>
+        <Skeleton
+          variant="rect"
+          animation="wave"
+          height={300}
+        />
       }
     </>
   );

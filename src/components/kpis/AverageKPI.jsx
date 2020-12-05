@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import KPICard from './KPICard';
+import { Skeleton } from '@material-ui/lab';
 
 const AverageKPIs = ({ data }) => {
   const [average, setAverage] = useState(null);
@@ -24,7 +25,11 @@ const AverageKPIs = ({ data }) => {
           title="Average"
           value={`${average} hours`}
         /> :
-        <div>loading kpi...</div>
+        <Skeleton
+          variant="rect"
+          animation="wave"
+          height={100}
+        />
       }
     </div>
   );

@@ -9,6 +9,7 @@ import {
   Legend,
   Bar,
 } from 'recharts';
+import { Skeleton } from '@material-ui/lab';
 
 const MyBarChart = ({ data }) => {
   const [parsedData, setParsedData] = useState(null)
@@ -49,7 +50,11 @@ const MyBarChart = ({ data }) => {
             <Bar dataKey="PRs" fill="#3f51b5" />
           </BarChart>
         </ResponsiveContainer> :
-        <div>loading chart...</div>
+        <Skeleton
+          variant="rect"
+          animation="wave"
+          height={300}
+        />
       }
     </>
   );
