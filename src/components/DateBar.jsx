@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { DatePicker } from "@material-ui/pickers";
 import { AppBar, Toolbar } from "@material-ui/core"
 import {
   selectStartDate,
@@ -8,39 +7,67 @@ import {
   setStartDate,
   setEndDate
 } from '../reducers/reviewTimeSlice';
+import DateRangePicker from '@wojtekmaj/react-daterange-picker';
+import moment from 'moment';
+
 
 const DateBar = () => {
+  const [errorMessage, setErrorMessage] = useState(false);
   const startDate = useSelector(selectStartDate);
   const endDate = useSelector(selectEndDate);
 
   const dispatch = useDispatch();
 
+  const isDateRangeValid = (dateArr) => {
+    if (!dateArr) {
+      return true;
+    }
+
+    const momentStart = moment(dateArr[0])
+    const momentEnd = moment(dateArr[1])
+    const diff = momentEnd.diff(momentStart, 'days')
+
+    console.log("diff", diff)
+
+    if (diff > 93) {
+      return false;
+    }
+
+    return true;
+  }
+
+  const onChange = (newDateArr) => {
+    console.log('newDateArr', newDateArr)
+    if (!isDateRangeValid(newDateArr)) {
+      setErrorMessage('range selected is too large, 3 month max (93 days)');
+      return;
+    } else {
+      setErrorMessage(false);
+    }
+    if (newDateArr && newDateArr.length) {
+      dispatch(setStartDate(newDateArr[0]))
+      dispatch(setEndDate(newDateArr[1]))
+    } else {
+      let thirtyDaysAgo = new Date();
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+      dispatch(setStartDate(thirtyDaysAgo))
+      dispatch(setEndDate(new Date()))
+    }
+  } 
+
   return (
     <AppBar position="static">
       <Toolbar>
         <div className="date-container">
-          <DatePicker
+          <DateRangePicker
+            format="yyyy-MM-dd"
             className="date-picker"
-            variant="inline"
-            inputVariant="outlined"
-            label="Start Date"
-            value={startDate}
-            onChange={newVal => dispatch(setStartDate(newVal))}
-            animateYearScrolling
-            disableFuture
-            format="yyyy-MM-DD"
+            onChange={onChange}
+            value={[startDate, endDate]}
           />
-          <DatePicker
-            className="date-picker"
-            variant="inline"
-            inputVariant="outlined"
-            label="End Date"
-            value={endDate}
-            onChange={newVal => dispatch(setEndDate(newVal))}
-            animateYearScrolling
-            disableFuture
-            format="yyyy-MM-DD"
-          />
+          {errorMessage && 
+            <div className="error-message">{errorMessage}</div>
+          }
         </div>
       </Toolbar>
     </AppBar>

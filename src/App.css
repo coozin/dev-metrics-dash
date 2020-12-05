@@ -21,6 +21,9 @@
 .date-picker fieldset, fieldset:active {
   border-color: white;
 }
+.date-picker svg {
+  stroke: white;
+}
 
 .tab-header {
   padding: 20px 0;
@@ -56,4 +59,8 @@
 }
 .prs-opened-kpi {
   flex: 1;
+}
+
+.error-message {
+  color: red;
 }

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import moment from 'moment';
 import utilities from '../utils/coreRequest';
 const {
   coreRequest,
@@ -43,23 +44,13 @@ export default function reviewTimeReducer(state = initialState, action) {
 
 export const setStartDate = (newDate) => dispatch => {
   console.log('setStartDate newDate', newDate)
-  dispatch({ type: 'setStartDate', payload: newDate.format("yyyy-MM-DD") })
+  dispatch({ type: 'setStartDate', payload: moment(newDate).format("yyyy-MM-DD") })
 }
 
 export const setEndDate = (newDate) => dispatch => {
   console.log('setEndDate newDate', newDate)
-  dispatch({ type: 'setEndDate', payload: newDate.format("yyyy-MM-DD") })
+  dispatch({ type: 'setEndDate', payload: moment(newDate).format("yyyy-MM-DD") })
 }
-
-/* 
-  "github.com/athenianco/athenian-webapp",
-  "github.com/athenianco/athenian-api",
-  "github.com/athenianco/environments",
-  "github.com/athenianco/helm-repo",
-  "github.com/athenianco/infrastructure",
-  "github.com/athenianco/metadata",
-  "github.com/athenianco/precomputer",
-*/
 
 export const fetchDataAsync = (metrics, startDate, endDate, hasRepoGroups = false) => async dispatch => {
   axios({
