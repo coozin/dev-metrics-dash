@@ -7,6 +7,7 @@ import {
   selectStartDate,
   selectEndDate,
 } from '../reducers/reviewTimeSlice';
+import AvgPRsPerRepo from './kpis/AvgPRsPerRepo';
 
 const PRsOpened = () => {
   const data = useSelector(selectBarData);
@@ -27,6 +28,7 @@ const PRsOpened = () => {
     <>
       <div className="review-time">
         <BarChart data={data}/>
+        <AvgPRsPerRepo data={data}/>
       </div>      
     </>
   );
