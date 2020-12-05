@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { DatePicker } from "@material-ui/pickers";
+import { AppBar, Toolbar } from "@material-ui/core"
 import {
   selectStartDate,
   selectEndDate,
@@ -15,28 +16,35 @@ const DateBar = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="date-container">
-      <DatePicker
-        variant="inline"
-        inputVariant="outlined"
-        label="Start Date"
-        value={startDate}
-        onChange={newVal => dispatch(setStartDate(newVal))}
-        animateYearScrolling
-        disableFuture
-        format="yyyy-MM-DD"
-      />
-      <DatePicker
-        variant="inline"
-        inputVariant="outlined"
-        label="End Date"
-        value={endDate}
-        onChange={newVal => dispatch(setEndDate(newVal))}
-        animateYearScrolling
-        disableFuture
-        format="yyyy-MM-DD"
-      />
-    </div>
+    <AppBar position="static">
+      <Toolbar>
+        <div className="date-container">
+          <DatePicker
+            className="date-picker"
+            variant="inline"
+            inputVariant="outlined"
+            label="Start Date"
+            value={startDate}
+            onChange={newVal => dispatch(setStartDate(newVal))}
+            animateYearScrolling
+            disableFuture
+            format="yyyy-MM-DD"
+          />
+          <DatePicker
+            className="date-picker"
+            variant="inline"
+            inputVariant="outlined"
+            label="End Date"
+            value={endDate}
+            onChange={newVal => dispatch(setEndDate(newVal))}
+            animateYearScrolling
+            disableFuture
+            format="yyyy-MM-DD"
+          />
+        </div>
+      </Toolbar>
+    </AppBar>
+   
   );
 }
 

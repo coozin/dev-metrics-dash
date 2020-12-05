@@ -5,6 +5,19 @@
 .date-container {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
-  padding: 20px;
+  padding: 20px 0;
+}
+
+.date-picker {
+  margin-right: 20px !important;
+  background-color: #ffffff26;
+}
+.date-picker input {
+  color: white;
+}
+.date-picker label {
+  color: white;
+}
+.date-picker fieldset, fieldset:active {
+  border-color: white;
 }
