@@ -23,7 +23,7 @@ const MyBarChart = ({ data }) => {
         tempArrNumberOfPRs.forEach(item => total += item);
         return {
           repo: item.for.repositories[0].split('/')[2],
-          number: total,
+          PRs: total,
         }
       })
       
@@ -46,7 +46,7 @@ const MyBarChart = ({ data }) => {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="number" fill="#8884d8" />
+            <Bar dataKey="PRs" fill="#8884d8" />
           </BarChart>
         </ResponsiveContainer> :
         <div>loading...</div>

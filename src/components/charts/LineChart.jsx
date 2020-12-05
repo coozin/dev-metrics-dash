@@ -42,7 +42,9 @@ const MyLineChart = ({data}) => {
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="date" />
             <YAxis />
-            <Tooltip />
+            <Tooltip
+              formatter={(value) => value.toFixed(2)}
+            />
             <Legend />
             <ReferenceLine y={avgLineVal} label="Avg" stroke="red" />
             <Line type="monotone" dataKey="hours" stroke="#8884d8" />
